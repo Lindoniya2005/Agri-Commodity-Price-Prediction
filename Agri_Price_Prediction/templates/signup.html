@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .box {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .flash-messages {
+      color: #d32f2f;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .flash-messages li {
+      margin-bottom: 5px;
+    }
+
+    .google-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .google-btn:hover {
+      background-color: #357ae8;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>📝 Sign Up</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash-messages">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" onsubmit="return validatePasswords()">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required />
+      <button type="submit">Create Account</button>
+    </form>
+
+    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+
+    <!-- Optional: Sign Up with Google button -->
+    <!-- <button class="google-btn">Sign Up with Google</button> -->
+  </div>
+
+  <script>
+    function validatePasswords() {
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm_password').value;
+
+      if (password !== confirm) {
+        alert("Passwords do not match!");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
